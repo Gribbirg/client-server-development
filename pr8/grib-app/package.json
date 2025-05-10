@@ -1,0 +1,38 @@
+{
+  "name": "grib-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/button": "^2.1.0",
+    "@chakra-ui/form-control": "^2.2.0",
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/provider": "^2.4.2",
+    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/table": "^2.1.0",
+    "@chakra-ui/toast": "^7.0.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@types/pg": "^8.15.1",
+    "axios": "^1.9.0",
+    "framer-motion": "^12.10.5",
+    "next": "^15.3.2",
+    "pg": "^8.15.6",
+    "pg-promise": "^11.13.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
