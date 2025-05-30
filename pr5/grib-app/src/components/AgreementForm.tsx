@@ -1,7 +1,7 @@
 'use client';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setAccepted } from '@/redux/agreementSlice';
+import { setAccepted, setSubmitted } from '@/redux/agreementSlice';
 import type { RootState } from '@/redux/store';
 
 export default function AgreementForm() {
@@ -15,7 +15,7 @@ export default function AgreementForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isAccepted) {
-      alert('Пользовательское соглашение принято!');
+      dispatch(setSubmitted(true));
     }
   };
 
