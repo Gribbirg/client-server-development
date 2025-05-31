@@ -26,7 +26,6 @@ const initialState: AuthState = {
   authMode: 'login',
 };
 
-// Async thunk for generating PKCE code verifier and challenge
 export const initializePKCE = createAsyncThunk(
   'auth/initializePKCE',
   async () => {
@@ -35,7 +34,6 @@ export const initializePKCE = createAsyncThunk(
     }
     
     try {
-      // Инициализируем хранилище пользователей при первой загрузке
       initializeUserStorage();
       
       const pkceClient = await getClientSidePKCE();
@@ -49,15 +47,12 @@ export const initializePKCE = createAsyncThunk(
   }
 );
 
-// Async thunk for authentication
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ username, password }: { username: string; password: string }, { rejectWithValue }) => {
     try {
-      // Simulate API request delay
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Проверяем учетные данные пользователя в localStorage
       const user = validateUser(username, password);
       
       if (user) {
@@ -71,23 +66,18 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Async thunk for user registration
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async ({ username, password, email }: { username: string; password: string; email: string }, { rejectWithValue }) => {
     try {
-      // Simulate API request delay
       await new Promise(resolve => setTimeout(resolve, 800));
       
-      // Проверяем, существует ли пользователь
       if (userExists(username)) {
         return rejectWithValue('Пользователь с таким именем уже существует');
       }
       
-      // Сохраняем нового пользователя
       saveUser(username, password, email, 'user');
       
-      // Возвращаем данные нового пользователя
       return { username, role: 'user', email };
     } catch (error) {
       return rejectWithValue('Ошибка регистрации');

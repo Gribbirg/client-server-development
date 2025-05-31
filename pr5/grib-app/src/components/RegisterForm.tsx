@@ -18,19 +18,16 @@ export default function RegisterForm() {
     (state: RootState) => state.auth
   );
 
-  // Client ID would typically come from environment variables
   const clientId = 'example-client-id';
   const redirectUri = typeof window !== 'undefined' ? window.location.origin : '';
 
-  // Initialize PKCE on component mount
   useEffect(() => {
     dispatch(initializePKCE());
   }, [dispatch]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate passwords match
+      
     if (password !== confirmPassword) {
       setPasswordError('Пароли не совпадают');
       return;
@@ -44,7 +41,6 @@ export default function RegisterForm() {
     }
 
     try {
-      // Dispatch the register action
       dispatch(registerUser({ username, password, email }));
     } catch (error) {
       console.error('Registration process failed:', error);

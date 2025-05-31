@@ -15,11 +15,9 @@ export default function AuthForm() {
     (state: RootState) => state.auth
   );
 
-  // Client ID would typically come from environment variables
   const clientId = 'example-client-id';
   const redirectUri = typeof window !== 'undefined' ? window.location.origin : '';
 
-  // Initialize PKCE on component mount
   useEffect(() => {
     dispatch(initializePKCE());
   }, [dispatch]);
@@ -33,7 +31,6 @@ export default function AuthForm() {
     }
 
     try {
-      // Dispatch the login action
       dispatch(loginUser({ username, password }));
     } catch (error) {
       console.error('Authentication process failed:', error);
