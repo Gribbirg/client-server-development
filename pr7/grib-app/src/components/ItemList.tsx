@@ -19,7 +19,6 @@ import {
   TableContainer
 } from '@chakra-ui/table'
 import axios from 'axios'
-// @ts-expect-error: ItemForm существует, но TypeScript не может найти его
 import ItemForm from './ItemForm'
 import { Item } from '../types'
 

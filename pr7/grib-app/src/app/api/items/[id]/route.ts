@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
-// Создаем пул подключений PostgreSQL
 const pool = new Pool({
   host: process.env.POSTGRES_HOST || 'localhost',
   port: parseInt(process.env.POSTGRES_PORT || '5432', 10),
@@ -10,12 +9,10 @@ const pool = new Pool({
   password: process.env.POSTGRES_PASSWORD || 'gribpassword',
 });
 
-// GET /api/items/[id] - получение элемента по ID
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  // В Next.js 14 params должны быть обработаны асинхронно
   const paramsObj = await params;
   const id = parseInt(paramsObj.id, 10);
   
@@ -46,12 +43,10 @@ export async function GET(
   }
 }
 
-// PUT /api/items/[id] - обновление элемента по ID
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  // В Next.js 14 params должны быть обработаны асинхронно
   const paramsObj = await params;
   const id = parseInt(paramsObj.id, 10);
   
@@ -65,7 +60,6 @@ export async function PUT(
   try {
     const { name, description } = await request.json();
     
-    // Проверка наличия обязательных полей
     if (!name || !description) {
       return NextResponse.json(
         { error: 'Name and description are required' },
@@ -73,7 +67,6 @@ export async function PUT(
       );
     }
     
-    // Обновление элемента
     const result = await pool.query(
       'UPDATE items SET name = $1, description = $2 WHERE id = $3 RETURNING *',
       [name, description, id]
@@ -96,12 +89,10 @@ export async function PUT(
   }
 }
 
-// DELETE /api/items/[id] - удаление элемента по ID
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  // В Next.js 14 params должны быть обработаны асинхронно
   const paramsObj = await params;
   const id = parseInt(paramsObj.id, 10);
   
