@@ -1,11 +1,10 @@
 import { Pool } from 'pg';
 
-// Конфигурация подключения к PostgreSQL
 const pool = new Pool({
-  user: 'alexgribkov',      // ваш системный пользователь
+  user: 'alexgribkov',
   host: 'localhost',
   database: 'crudapp',
-  password: '',             // пустой пароль для macOS
+  password: '',
   port: 5432,
 });
 

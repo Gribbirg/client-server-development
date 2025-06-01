@@ -7,7 +7,6 @@ interface RouteParams {
   };
 }
 
-// GET item by ID
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = params;
@@ -21,7 +20,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     let query;
     let queryParams: any[] = [id];
     
-    // Admin can see any item with owner information
     if (userRole === 'admin') {
       query = `
         SELECT i.*, u.username 
@@ -30,7 +28,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         WHERE i.id = $1
       `;
     } 
-    // Regular users can only see their own items
     else {
       query = `
         SELECT i.* 
@@ -56,7 +53,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-// PUT/UPDATE item by ID
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = params;
@@ -72,7 +68,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: 'Name and description are required' }, { status: 400 });
     }
     
-    // Check if item exists and if user has permission to update it
     let checkQuery;
     let checkParams: any[] = [id];
     
@@ -92,7 +87,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
     
-    // User has permission, update the item
     const result = await pool.query(
       'UPDATE items SET name = $1, description = $2 WHERE id = $3 RETURNING *',
       [name, description, id]
@@ -105,7 +99,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-// DELETE item by ID
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = params;
@@ -116,7 +109,6 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: 'Unauthorized: No user ID provided' }, { status: 401 });
     }
     
-    // Check if item exists and if user has permission to delete it
     let checkQuery;
     let checkParams: any[] = [id];
     
@@ -136,7 +128,6 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       );
     }
     
-    // User has permission, delete the item
     await pool.query('DELETE FROM items WHERE id = $1', [id]);
     
     return NextResponse.json({ message: 'Item deleted successfully' });

@@ -26,7 +26,6 @@ export default function ItemForm({ onSubmit, currentItem, onCancel }: ItemFormPr
   const toast = useToast()
 
   useEffect(() => {
-    // Reset form when currentItem changes
     if (currentItem) {
       setFormData({
         name: currentItem.name,
@@ -76,7 +75,6 @@ export default function ItemForm({ onSubmit, currentItem, onCancel }: ItemFormPr
           isClosable: true,
         })
       } else {
-        // Create new item
         await axios.post('/api/items', formData)
         toast({
           title: "Success",
@@ -87,7 +85,6 @@ export default function ItemForm({ onSubmit, currentItem, onCancel }: ItemFormPr
         })
       }
       
-      // Reset form and notify parent
       setFormData({
         name: '',
         description: ''
